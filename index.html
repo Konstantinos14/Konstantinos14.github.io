@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Name — Cognitive Science & Neurolinguistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0c0c0f;
+    --bg2: #111116;
+    --bg3: #17171e;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #ede8dc;
+    --text-muted: #7a7670;
+    --text-dim: #504e49;
+    --gold: #c4a35a;
+    --gold-dim: rgba(196,163,90,0.12);
+    --gold-glow: rgba(196,163,90,0.20);
+    --serif: 'Cormorant Garant', Georgia, serif;
+    --sans: 'Outfit', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(12,12,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::after {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse at center, rgba(196,163,90,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 560px;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .badge:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.8rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #0c0c0f;
+  }
+
+  .btn-primary:hover { background: #d4b570; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover { border-color: var(--text-muted); color: var(--text); }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 7rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-number {
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-photo-frame {
+    position: absolute;
+    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    border: 1px solid var(--gold-dim);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .about-photo svg {
+    opacity: 0.3;
+  }
+
+  .about-text p {
+    margin-bottom: 1.25rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .about-text p:first-child { color: var(--text); font-size: 1.1rem; }
+
+  .about-details {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .detail-item {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .detail-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+  }
+
+  .detail-value {
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  /* RESEARCH INTERESTS */
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .research-card {
+    padding: 2rem 1.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    position: relative;
+    transition: border-color 0.25s, background 0.25s;
+    overflow: hidden;
+  }
+
+  .research-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .research-card:hover { border-color: var(--border-hover); background: var(--bg3); }
+  .research-card:hover::before { transform: scaleX(1); }
+
+  .research-icon {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  .research-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .research-card p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .research-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+  }
+
+  .research-tag {
+    font-size: 0.65rem;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  /* CV */
+  .cv-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+  }
+
+  .cv-section-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 2.25rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 18px;
+    width: 1px;
+    height: calc(100% + 8px);
+    background: var(--border);
+  }
+
+  .timeline-item:last-child::after { display: none; }
+
+  .timeline-year {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-sub {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .skills-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .skill-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+  }
+
+  .skill-name { color: var(--text-muted); }
+  .skill-pct { color: var(--text-dim); }
+
+  .skill-bar {
+    height: 1px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .skill-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: var(--gold);
+    transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .cv-download {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-dim);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .cv-download:hover { border-color: var(--gold); }
+
+  /* PROJECTS */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .project-item {
+    background: var(--bg);
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .project-item:hover { background: var(--bg2); }
+
+  .project-type {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  .project-arrow {
+    color: var(--text-dim);
+    font-size: 1.2rem;
+    transition: transform 0.2s, color 0.2s;
+    margin-top: 0.25rem;
+  }
+
+  .project-item:hover .project-arrow { transform: translate(4px,-4px); color: var(--gold); }
+
+  /* CONTACT */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .contact-lead {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-lead em { font-style: italic; color: var(--gold); }
+
+  .contact-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    background: var(--bg2);
+  }
+
+  .contact-link:hover { border-color: var(--gold); color: var(--text); background: var(--bg3); }
+
+  .contact-link-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .contact-link-label { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+  .contact-link-value { font-size: 0.88rem; }
+
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(100,200,130,0.2);
+    background: rgba(100,200,130,0.05);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6ec88a;
+    margin-bottom: 2rem;
+  }
+
+  .availability-dot {
+    width: 6px; height: 6px;
+    background: #6ec88a;
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1.25rem; }
+    .nav-links a { font-size: 0.7rem; }
+    #hero { padding: 7rem 1.25rem 3rem; }
+    section { padding: 4rem 1.25rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-photo { aspect-ratio: 1/1; }
+    .research-grid { grid-template-columns: 1fr; }
+    .cv-columns { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .project-item { grid-template-columns: 1fr; }
+    .project-arrow { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Seeking PhD Opportunities · 2025</div>
+    <h1>Your<br><em>Name</em></h1>
+    <p class="hero-subtitle">Master's student in Cognitive Science &amp; Computational Linguistics</p>
+    <div class="hero-badges">
+      <span class="badge">Neurolinguistics</span>
+      <span class="badge">Computational Linguistics</span>
+      <span class="badge">Cognitive Science</span>
+      <span class="badge">Language Processing</span>
+      <span class="badge">Neural Mechanisms</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Open to PhD positions</a>
+      <a href="#cv" class="btn btn-outline">View CV</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2>About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <div class="about-photo">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="18" r="9" stroke="#c4a35a" stroke-width="1.5"/>
+          <path d="M6 42c0-9.94 8.059-18 18-18s18 8.06 18 18" stroke="#c4a35a" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span style="font-size:0.72rem;letter-spacing:0.1em;color:var(--text-dim);margin-top:0.5rem;">Your Photo Here</span>
+      </div>
+      <div class="about-photo-frame"></div>
+    </div>
+    <div class="about-text">
+      <p>I am a Master's student in Cognitive Science at [Your University], working at the intersection of language, mind, and computation. My research investigates how the human brain encodes and processes linguistic structures — from phonology to syntax — and how these mechanisms can be modelled computationally.</p>
+      <p>Before my Master's, I completed my undergraduate degree in [Field] at [University], where I first became fascinated by the neural underpinnings of language. I have since had the opportunity to work in [Lab Name] under [Supervisor Name], contributing to projects on [brief topic].</p>
+      <p>I am currently looking for PhD positions where I can explore the neural and computational bases of language comprehension, particularly in multilingual or atypical populations.</p>
+      <div class="about-details">
+        <div class="detail-item">
+          <div class="detail-label">Location</div>
+          <div class="detail-value">Your City, Country</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Languages</div>
+          <div class="detail-value">English, [Other]</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Current Program</div>
+          <div class="detail-value">MSc Cognitive Science</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Expected Graduation</div>
+          <div class="detail-value">June 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH INTERESTS -->
+<section id="research">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2>Research Interests</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="research-icon">🧠</div>
+      <h3>Neurolinguistics</h3>
+      <p>Investigating the neural substrates of language processing using EEG, fMRI, and electrophysiology. Particular interest in event-related potentials (N400, P600) and what they reveal about syntactic and semantic processing.</p>
+      <div class="research-tags">
+        <span class="research-tag">EEG/ERP</span>
+        <span class="research-tag">fMRI</span>
+        <span class="research-tag">Syntax</span>
+        <span class="research-tag">N400</span>
+      </div>
+    </div>
+    <div class="research-card">
+      <div class="research-icon">⚙️</div>
+      <h3>Computational Linguistics</h3>
+      <p>Building and evaluating computational models of language comprehension and production. Interested in whether large language models capture anything meaningful about human linguistic cognition.</p>
+      <div class="research-tags">
+        <span class="research-tag">NLP</span>
+        <span class="research-tag">Language Models</span>
+        <span class="research-tag">Parsing</span>
+        <span class="research-tag">Python</span>
+      </div>
+    </div>
+    <div class="research-card">
+      <div class="research-icon">💡</div>
+      <h3>Cognitive Science</h3>
+      <p>Exploring the broader cognitive architecture underlying language — memory, attention, executive function — and how language interacts with other cognitive systems during development and in clinical populations.</p>
+      <div class="research-tags">
+        <span class="research-tag">Working Memory</span>
+        <span class="research-tag">Bilingualism</span>
+        <span class="research-tag">Development</span>
+        <span class="research-tag">Aphasia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<section id="cv">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2>Curriculum Vitae</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cv-columns">
+    <div>
+      <div class="cv-section-title">Education</div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023 – Present</div>
+        <div class="timeline-title">MSc Cognitive Science</div>
+        <div class="timeline-sub">Your University, City</div>
+        <div class="timeline-desc">Thesis: "[Your Thesis Title]" · Advisor: Prof. [Name] · GPA: X.X/4.0</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2019 – 2023</div>
+        <div class="timeline-title">BA Linguistics / [Field]</div>
+        <div class="timeline-sub">Your University, City</div>
+        <div class="timeline-desc">Graduated with honours. Final project on [topic]. Dean's List [Year].</div>
+      </div>
+
+      <div class="cv-section-title" style="margin-top:2.5rem;">Experience</div>
+      <div class="timeline-item">
+        <div class="timeline-year">2024</div>
+        <div class="timeline-title">Research Assistant</div>
+        <div class="timeline-sub">[Lab Name], [University]</div>
+        <div class="timeline-desc">EEG data collection and preprocessing for a study on syntactic prediction in L2 speakers. Contributed to manuscript preparation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <div class="timeline-title">Teaching Assistant</div>
+        <div class="timeline-sub">Introduction to Linguistics, [University]</div>
+        <div class="timeline-desc">Led weekly seminars, graded assignments, and held office hours for 60+ undergraduate students.</div>
+      </div>
+
+      <a href="#" class="cv-download">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3.5 6l3.5 4 3.5-4M1 11h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Download full CV (PDF)
+      </a>
+    </div>
+
+    <div>
+      <div class="cv-section-title">Skills &amp; Methods</div>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">EEG / ERP Analysis</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">Python (MNE, NLTK, HuggingFace)</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">R (lme4, tidyverse)</span><span class="skill-pct">75%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">Experimental Design</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">fMRI Preprocessing (FSL)</span><span class="skill-pct">55%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="55%"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label-row"><span class="skill-name">Academic Writing</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+        </div>
+      </div>
+
+      <div class="cv-section-title" style="margin-top:2.5rem;">Selected Coursework</div>
+      <div class="skills-grid">
+        <div style="display:flex;flex-direction:column;gap:0.6rem;">
+          <div style="font-size:0.83rem;color:var(--text-muted);padding:0.6rem 0;border-bottom:1px solid var(--border);">Psycholinguistics</div>
+          <div style="font-size:0.83rem;color:var(--text-muted);padding:0.6rem 0;border-bottom:1px solid var(--border);">Neural Basis of Language</div>
+          <div style="font-size:0.83rem;color:var(--text-muted);padding:0.6rem 0;border-bottom:1px solid var(--border);">Computational Modelling of Cognition</div>
+          <div style="font-size:0.83rem;color:var(--text-muted);padding:0.6rem 0;border-bottom:1px solid var(--border);">Advanced Statistics for Cognitive Science</div>
+          <div style="font-size:0.83rem;color:var(--text-muted);padding:0.6rem 0;">Natural Language Processing</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2>Projects &amp; Publications</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-list">
+    <div class="project-item">
+      <div>
+        <div class="project-type">Master's Thesis · In Progress</div>
+        <div class="project-title">[Your Thesis Title Here]</div>
+        <div class="project-desc">A brief description of your thesis project — what question it asks, what method you use, and what you have found or expect to find. Keep it accessible to a broad academic audience.</div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-item">
+      <div>
+        <div class="project-type">Research Project · 2024</div>
+        <div class="project-title">Neural Correlates of Syntactic Prediction in L2 Speakers</div>
+        <div class="project-desc">EEG study examining whether second-language speakers show similar electrophysiological signatures to native speakers during online parsing of garden-path sentences. Analysed data from 32 participants using MNE-Python.</div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-item">
+      <div>
+        <div class="project-type">Term Paper · 2023</div>
+        <div class="project-title">Do Large Language Models Predict Human Reading Times?</div>
+        <div class="project-desc">Evaluated surprisal estimates from GPT-2 and Llama-2 against naturalistically collected reading time corpora. Found [result]. Presented at [Conference/Seminar].</div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+    <div class="project-item">
+      <div>
+        <div class="project-type">Conference Poster · 2024</div>
+        <div class="project-title">[Poster Title] — [Conference Name]</div>
+        <div class="project-desc">Your Name, Co-Author Name. Brief abstract of what was presented. [Conference Name], [City], [Year].</div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2>Get in Touch</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-inner">
+    <div>
+      <div class="availability-badge">
+        <div class="availability-dot"></div>
+        Open to PhD positions
+      </div>
+      <div class="contact-lead">Let's talk about<br><em>language, mind,</em><br>and research.</div>
+      <p class="contact-sub">I am actively seeking PhD positions starting in 2025 or 2026. If you are a PI working on neurolinguistics, computational language processing, or related areas — or if you just want to discuss research — I would love to hear from you.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:your.email@university.edu" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">your.email@university.edu</div>
+        </div>
+      </a>
+      <a href="https://scholar.google.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">G</div>
+        <div>
+          <div class="contact-link-label">Google Scholar</div>
+          <div class="contact-link-value">Your Name</div>
+        </div>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">in</div>
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-value">/in/yourname</div>
+        </div>
+      </a>
+      <a href="https://github.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">GH</div>
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">@yourhandle</div>
+        </div>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="contact-link">
+        <div class="contact-link-icon">𝕏</div>
+        <div>
+          <div class="contact-link-label">Twitter / X</div>
+          <div class="contact-link-value">@yourhandle</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Your Name</span>
+  <span>Cognitive Science · Neurolinguistics · Computational Linguistics</span>
+</footer>
+
+<script>
+  // Intersection Observer for section reveal
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // Animate skill bars when CV section is visible
+        if (e.target.id === 'cv') {
+          document.querySelectorAll('.skill-fill').forEach(bar => {
+            bar.style.width = bar.getAttribute('data-width');
+          });
+        }
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Set all skill bars to 0 initially
+  document.querySelectorAll('.skill-fill').forEach(bar => {
+    bar.style.width = '0%';
+    bar.style.transition = 'width 1.4s cubic-bezier(0.22,1,0.36,1)';
+  });
+
+  // Active nav link highlight on scroll
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current
+        ? 'var(--text)' : '';
+    });
+  });
+</script>
+</body>
+</html>
